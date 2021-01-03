@@ -2,9 +2,10 @@ import React from 'react'
 import axios from 'axios'
 import MenuComponent from "./MenuComponent";
 import {Container, Card} from "semantic-ui-react";
-import BookCard from "./BookCard";
+import BookCard from "../container/BookCard";
 import '../app.css'
 import Filter from "./Filter";
+import {addBooks, removeBooks} from "../actions/cart";
 // import App from '../container/App'
 
 
@@ -21,11 +22,11 @@ class App extends React.Component {
         const {books, isReady} = this.props;
         return (
             <Container>
-                <MenuComponent/>
-                <Filter searchQuery={this.props.searchQuery} setQuery={this.props.setQuery} setFilter={this.props.setFilter} filterBy={this.props.filterBy}/>
+                <MenuComponent removeBooks={this.props.removeBooks} items={this.props.cartItems} count={this.props.count} totalPrice={this.props.totalPrice}/>
+                <Filter  searchQuery={this.props.searchQuery} setQuery={this.props.setQuery} setFilter={this.props.setFilter} filterBy={this.props.filterBy}/>
                 <Card.Group itemsPerRow={4}>
 
-                        {!isReady ? 'Загрузка...' : books.map((book,i) => <BookCard key={i} {...book}/>)}
+                        {!isReady ? 'Загрузка...' : books.map((book,i) => <BookCard addBooks={()=>this.props.addBooks(book)} key={i} {...book}/>)}
                 </Card.Group>
             </Container>)
     }

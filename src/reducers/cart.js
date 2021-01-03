@@ -1,20 +1,19 @@
-const initialState={
+const initialState = {
     items: []
 }
 
-export default (state=initialState,action)=>{
-    switch (action.type)
-    {
+export default (state = initialState, action) => {
+    switch (action.type) {
         case 'ADD_BOOKS': {
             return {
                 ...state,
-                items: [...state.items,action.payload]
+                items: [...state.items, action.payload]
             }
         }
         case  'REMOVE_BOOKS': {
             return {
                 ...state,
-                items: state.items.filter(i=>i.id!=action.payload)
+                items: state.items.filter(i => i.id != action.payload)
             }
         }
 

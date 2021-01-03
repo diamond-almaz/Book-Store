@@ -1,6 +1,19 @@
-import {Menu} from 'semantic-ui-react'
+import {Menu, Popup, Button, Image, List} from 'semantic-ui-react'
 import React from "react";
 
+const CartComponent=({title,image,id,removeBooks})=>(
+    <List selection divided verticalAlign='middle'>
+        <List.Item>
+            <List.Content floated='right'>
+                <Button onClick={removeBooks.bind(this, id)} color={'red'}>Удалить</Button>
+
+            </List.Content>
+            <Image avatar src={image} />
+            <List.Content>{title}</List.Content>
+        </List.Item>
+
+    </List>
+);
 
 class MenuComponent extends React.Component {
     render() {
@@ -18,15 +31,21 @@ class MenuComponent extends React.Component {
                     name='signup'
                     onClick={this.handleItemClick}
                 >
-                    Итого: &nbsp; <b>0</b>&nbsp;руб.
+                    Итого: &nbsp; <b>{this.props.totalPrice}</b>&nbsp;руб.
                 </Menu.Item>
 
-                <Menu.Item
-                    name='help'
-                    onClick={this.handleItemClick}
-                >
-                    Корзина (<b>0</b>)
-                </Menu.Item>
+                <Popup
+                    trigger={<Menu.Item
+                        name='help'
+                        onClick={this.handleItemClick}
+                    >
+                        Корзина (<b>{this.props.count}</b>)
+                    </Menu.Item>}
+                    content={this.props.items.map(i=><CartComponent removeBooks={this.props.removeBooks} {...i}/>)}
+                    on='click'
+                    hideOnScroll
+                />
+
             </Menu.Menu>
         </Menu>
     }
