@@ -22,7 +22,7 @@ class App extends React.Component {
         return (
             <Container>
                 <MenuComponent/>
-                <Filter/>
+                <Filter searchQuery={this.props.searchQuery} setQuery={this.props.setQuery} setFilter={this.props.setFilter} filterBy={this.props.filterBy}/>
                 <Card.Group itemsPerRow={4}>
 
                         {!isReady ? 'Загрузка...' : books.map((book,i) => <BookCard key={i} {...book}/>)}
